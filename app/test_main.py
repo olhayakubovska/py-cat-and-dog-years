@@ -1,3 +1,20 @@
-from app.main import get_human_age
+import pytest
 
-# write your code here
+from app import main
+
+
+@pytest.mark.parametrize(
+    "a,b,result",
+    [
+        pytest.param(0, 0, [0, 0], id="test_zero_ages"),
+        pytest.param(14, 14, [0, 0], id="test_before_first_threshold"),
+        pytest.param(15, 15, [1, 1], id="test_first_threshold"),
+        pytest.param(23, 23, [1, 1], id="test_before_second_threshold"),
+        pytest.param(24, 24, [2, 2], id="test_second_threshold"),
+        pytest.param(27, 27, [2, 2], id="test_before_cat_increment"),
+        pytest.param(28, 28, [3, 2], id="test_cat_increment"),
+        pytest.param(100, 100, [21, 17], id="test_large_ages"),
+    ],
+)
+def test_ages(a: int, b: int, result: list[int]):
+    assert main.get_human_age(a, b) == result
