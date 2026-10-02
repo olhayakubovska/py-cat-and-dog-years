@@ -4,7 +4,7 @@ from app import main
 
 
 @pytest.mark.parametrize(
-    "a,b,result",
+    "cat_age,dog_age,result",
     [
         pytest.param(0, 0, [0, 0], id="test_zero_ages"),
         pytest.param(14, 14, [0, 0], id="test_before_first_threshold"),
@@ -16,5 +16,9 @@ from app import main
         pytest.param(100, 100, [21, 17], id="test_large_ages"),
     ],
 )
-def test_ages(a: int, b: int, result: list[int]):
-    assert main.get_human_age(a, b) == result
+def test_ages(
+    cat_age: int,
+    dog_age: int,
+    result: list[int],
+) -> None:
+    assert main.get_human_age(cat_age, dog_age) == result
